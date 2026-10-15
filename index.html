@@ -141,7 +141,7 @@
         white-space: nowrap;
     }
 
-    /* ===== GRILLES — PBI : 3 col. / Web : 2 col. ===== */
+    /* ===== GRILLES ===== */
     .grid-pbi {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -202,7 +202,7 @@
         align-items: center;
         gap: 0.9rem;
         margin-bottom: 0.9rem;
-        padding-right: 8.5rem; /* espace badge maintenance */
+        padding-right: 8.5rem;
     }
 
     .card-icon {
@@ -270,7 +270,7 @@
         box-shadow: 0 4px 15px rgba(37, 226, 204, 0.45);
     }
 
-    /* ===== MAINTENANCE (Tangerine) ===== */
+    /* ===== MAINTENANCE ===== */
     .card.maintenance {
         opacity: 0.55;
         cursor: not-allowed;
@@ -366,14 +366,16 @@ const ICONES = {
 
     sectionWeb: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#25E2CC" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9S9.5 5.5 12 3z" stroke="#51E8D6" stroke-width="1.8"/></svg>`,
 
-    /* — Icônes de cartes — */
-    atterrissage: `<svg viewBox="0 0 24 24" fill="none"><g transform="translate(12 12) rotate(135) scale(0.8) translate(-12 -12)"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#25E2CC"/></g></svg>`,
+    /* 1 — Chiffre d'affaires : pièce + symbole € */
+    revenue: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.2" fill="#25E2CC"/><circle cx="12" cy="12" r="7.6" stroke="#51E8D6" stroke-width="1.2"/><path d="M14.6 9.1a3.7 3.7 0 1 0 0 5.8" stroke="#002032" stroke-width="1.9" stroke-linecap="round"/><path d="M8.1 10.7h3.4M8.1 13.3h3.4" stroke="#002032" stroke-width="1.6" stroke-linecap="round"/></svg>`,
 
-    balance: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M7 21h10" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M4 6h16" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M4 6L1.5 11.5h5L4 6zM20 6l-2.5 5.5h5L20 6z" fill="#7CEEE0"/><circle cx="12" cy="6" r="1.6" fill="#FBCA18"/></svg>`,
+    /* 2 — Bonus par agent : agent + pastille bonus */
+    agentBonus: `<svg viewBox="0 0 24 24" fill="none"><circle cx="9.5" cy="7.2" r="3.4" fill="#7CEEE0"/><path d="M3 20.2c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" fill="#25E2CC"/><circle cx="17.2" cy="7.2" r="4.8" fill="#FBCA18"/><path d="M17.2 4.9v4.6M14.9 7.2h4.6" stroke="#002032" stroke-width="1.9" stroke-linecap="round"/></svg>`,
 
     organigramme: `<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="2.5" width="6" height="5" rx="1.2" fill="#25E2CC"/><rect x="2" y="16.5" width="6" height="5" rx="1.2" fill="#51E8D6"/><rect x="16" y="16.5" width="6" height="5" rx="1.2" fill="#51E8D6"/><path d="M12 7.5v4M5 11.5h14M5 11.5v5M19 11.5v5" stroke="#25E2CC" stroke-width="2" stroke-linecap="round"/></svg>`,
 
-    clipboard: `<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="3.5" width="15" height="18" rx="2.5" fill="#25E2CC"/><rect x="8.5" y="1.5" width="7" height="4" rx="1.2" fill="#7CEEE0"/><path d="M9 13l2.2 2.2L15.5 11" stroke="#002032" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    /* 4 — LogiPlan : camion + cloche de cantine */
+    camionCantine: `<svg viewBox="0 0 24 24" fill="none"><rect x="1.5" y="6.5" width="12" height="9" rx="1.5" fill="#25E2CC"/><path d="M7.5 8c-1.7 0-3.1 1.4-3.1 3.1v1h6.2v-1C10.6 9.4 9.2 8 7.5 8z" fill="#FBCA18"/><circle cx="7.5" cy="7.5" r="0.8" fill="#FBCA18"/><rect x="3.7" y="12.1" width="7.6" height="1.2" rx="0.6" fill="#FBCA18"/><path d="M13.5 8.8h3.3c.4 0 .8.2 1 .5l2.7 3c.2.3.4.6.4 1v1.2h-7.4z" fill="#51E8D6"/><path d="M14.7 10.3h1.9l1.5 1.7h-3.4z" fill="#002032"/><circle cx="6.5" cy="17" r="2.3" fill="#002032"/><circle cx="6.5" cy="17" r="0.9" fill="#7CEEE0"/><circle cx="18" cy="17" r="2.3" fill="#002032"/><circle cx="18" cy="17" r="0.9" fill="#7CEEE0"/></svg>`,
 
     barres: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4.5" height="8.5" rx="1.2" fill="#51E8D6"/><rect x="9.75" y="8" width="4.5" height="12.5" rx="1.2" fill="#25E2CC"/><rect x="16.5" y="3.5" width="4.5" height="17" rx="1.2" fill="#FBCA18"/></svg>`,
 
@@ -400,7 +402,7 @@ const SECTIONS = [
                 nom: "Atterrissage",
                 description: "BI axé sur l'analyse de l'atterrissage du Chiffre d'Affaires, des heures et des indicateurs de productivité. Ce module compare les résultats réalisés face aux objectifs budgétaires et aux RFC dans le but d'orienter et d'ajuster les arbitrages financiers et opérationnels.",
                 lien: "#",
-                icone: "atterrissage",
+                icone: "revenue",
                 maintenance: true
             },
             {   // 2
@@ -408,7 +410,7 @@ const SECTIONS = [
                 nom: "Prime I Provision",
                 description: "BI dédiée à l'analyse comparative et au contrôle de cohérence, mettant en évidence de manière dynamique les écarts constatés entre les primes réellement validées et les provisions initialement établies sur une période entièrement personnalisable.",
                 lien: "https://app.powerbi.com/view?r=eyJrIjoiOTMwN2U5OTQtYWJhYy00MTBlLWFmMjQtMjkwMTliNDZmYjE0IiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
-                icone: "balance",
+                icone: "agentBonus",
                 maintenance: false
             },
             {   // 3
@@ -447,7 +449,7 @@ const SECTIONS = [
                 nom: "LogiPlan",
                 description: "Solution de centralisation des commandes de la cantine, confrontation en temps réel des données « commandé vs consommé » et suivi de la performance pour optimiser les approvisionnements.",
                 lien: "https://logiplan.onrender.com/",
-                icone: "clipboard",
+                icone: "camionCantine",
                 maintenance: false
             },
             {   // 7
