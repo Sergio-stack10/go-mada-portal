@@ -217,7 +217,7 @@
         flex-shrink: 0;
     }
 
-    .card-icon svg { width: 27px; height: 27px; }
+    .card-icon svg, .card-icon img { width: 28px; height: 28px; }
 
     .card-category {
         font-size: 0.72rem;
@@ -358,7 +358,10 @@
 
 <script>
 /* ============================================================
-   🎨 ICÔNES FLAT (SVG — charte officielle)
+   🎨 ICÔNES FLATICON-STYLE (SVG duotone — charte officielle)
+   💡 Pour utiliser de VRAIS fichiers flaticon à la place :
+      uploadez le PNG dans le repo et mettez image: "nom.png"
+      dans le module (le champ image est prioritaire sur icone)
    ============================================================ */
 const ICONES = {
     /* — Icônes de sections — */
@@ -366,30 +369,38 @@ const ICONES = {
 
     sectionWeb: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#25E2CC" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9S9.5 5.5 12 3z" stroke="#51E8D6" stroke-width="1.8"/></svg>`,
 
-    /* 1 — Chiffre d'affaires : pièce + symbole € */
-    revenue: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.2" fill="#25E2CC"/><circle cx="12" cy="12" r="7.6" stroke="#51E8D6" stroke-width="1.2"/><path d="M14.6 9.1a3.7 3.7 0 1 0 0 5.8" stroke="#002032" stroke-width="1.9" stroke-linecap="round"/><path d="M8.1 10.7h3.4M8.1 13.3h3.4" stroke="#002032" stroke-width="1.6" stroke-linecap="round"/></svg>`,
+    /* 1 — Atterrissage : loupe d'analyse + barres */
+    atterrissage: `<svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="7.5" stroke="#25E2CC" stroke-width="2.2"/><line x1="16.2" y1="16.2" x2="21" y2="21" stroke="#25E2CC" stroke-width="2.6" stroke-linecap="round"/><rect x="6.8" y="11.2" width="2" height="2.6" rx="0.7" fill="#FBCA18"/><rect x="9.5" y="9.6" width="2" height="4.2" rx="0.7" fill="#51E8D6"/><rect x="12.2" y="7.8" width="2" height="6" rx="0.7" fill="#25E2CC"/></svg>`,
 
-    /* 2 — Bonus par agent : agent + pastille bonus */
-    agentBonus: `<svg viewBox="0 0 24 24" fill="none"><circle cx="9.5" cy="7.2" r="3.4" fill="#7CEEE0"/><path d="M3 20.2c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" fill="#25E2CC"/><circle cx="17.2" cy="7.2" r="4.8" fill="#FBCA18"/><path d="M17.2 4.9v4.6M14.9 7.2h4.6" stroke="#002032" stroke-width="1.9" stroke-linecap="round"/></svg>`,
+    /* 2 — Prime I Provision : agent + pièce bonus */
+    agentBonus: `<svg viewBox="0 0 24 24" fill="none"><circle cx="8.5" cy="7.5" r="3.6" fill="#25E2CC"/><path d="M2.5 20.5c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5z" fill="#25E2CC"/><circle cx="17.2" cy="9" r="5" fill="#FBCA18"/><path d="M17.2 6.7v4.6M14.9 9h4.6" stroke="#002032" stroke-width="1.9" stroke-linecap="round"/></svg>`,
 
-    organigramme: `<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="2.5" width="6" height="5" rx="1.2" fill="#25E2CC"/><rect x="2" y="16.5" width="6" height="5" rx="1.2" fill="#51E8D6"/><rect x="16" y="16.5" width="6" height="5" rx="1.2" fill="#51E8D6"/><path d="M12 7.5v4M5 11.5h14M5 11.5v5M19 11.5v5" stroke="#25E2CC" stroke-width="2" stroke-linecap="round"/></svg>`,
+    /* 3 — SPOC I Ratio : organigramme hiérarchique */
+    organigramme: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.2" r="2.6" fill="#FBCA18"/><path d="M12 6.8v3.2M6 10h12M6 10v4.4M12 10v4.4M18 10v4.4" stroke="#25E2CC" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="16.8" r="2.6" fill="#25E2CC"/><circle cx="12" cy="16.8" r="2.6" fill="#25E2CC"/><circle cx="18" cy="16.8" r="2.6" fill="#25E2CC"/></svg>`,
 
-    /* 4 — LogiPlan : camion + cloche de cantine */
-    camionCantine: `<svg viewBox="0 0 24 24" fill="none"><rect x="1.5" y="6.5" width="12" height="9" rx="1.5" fill="#25E2CC"/><path d="M7.5 8c-1.7 0-3.1 1.4-3.1 3.1v1h6.2v-1C10.6 9.4 9.2 8 7.5 8z" fill="#FBCA18"/><circle cx="7.5" cy="7.5" r="0.8" fill="#FBCA18"/><rect x="3.7" y="12.1" width="7.6" height="1.2" rx="0.6" fill="#FBCA18"/><path d="M13.5 8.8h3.3c.4 0 .8.2 1 .5l2.7 3c.2.3.4.6.4 1v1.2h-7.4z" fill="#51E8D6"/><path d="M14.7 10.3h1.9l1.5 1.7h-3.4z" fill="#002032"/><circle cx="6.5" cy="17" r="2.3" fill="#002032"/><circle cx="6.5" cy="17" r="0.9" fill="#7CEEE0"/><circle cx="18" cy="17" r="2.3" fill="#002032"/><circle cx="18" cy="17" r="0.9" fill="#7CEEE0"/></svg>`,
+    /* 4 — LogiPlan : cloche de cantine */
+    cloche: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 14.5a8 8 0 0 1 16 0z" fill="#25E2CC"/><rect x="2.5" y="14.5" width="19" height="2.3" rx="1.15" fill="#25E2CC"/><circle cx="12" cy="5" r="1.5" fill="#FBCA18"/><rect x="5" y="18.2" width="14" height="2.5" rx="1.25" fill="#51E8D6"/></svg>`,
 
-    barres: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4.5" height="8.5" rx="1.2" fill="#51E8D6"/><rect x="9.75" y="8" width="4.5" height="12.5" rx="1.2" fill="#25E2CC"/><rect x="16.5" y="3.5" width="4.5" height="17" rx="1.2" fill="#FBCA18"/></svg>`,
+    /* 5 — Budget Madagascar : camembert financier */
+    camembert: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 1 1 9 9h-9z" fill="#25E2CC"/><path d="M12 3a9 9 0 0 1 9 9h-9z" fill="#FBCA18"/></svg>`,
 
-    jauge: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 16a8 8 0 1 1 16 0" stroke="#25E2CC" stroke-width="2.5" stroke-linecap="round"/><path d="M12 16l4-4.5" stroke="#FBCA18" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="16" r="2" fill="#7CEEE0"/></svg>`,
+    /* 6 — CEP : reçu comptable */
+    recu: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 2h14v18l-2.3-1.7-2.35 1.7-2.35-1.7L9.65 20 7.3 18.3 5 20z" fill="#25E2CC"/><rect x="8" y="5.5" width="8" height="1.9" rx="0.95" fill="#002032"/><rect x="8" y="9.2" width="8" height="1.9" rx="0.95" fill="#002032"/><rect x="8" y="12.9" width="4.5" height="1.9" rx="0.95" fill="#FBCA18"/></svg>`,
 
-    horloge: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#25E2CC" stroke-width="2.2"/><path d="M12 6.5V12l3.5 2" stroke="#7CEEE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.3" fill="#FBCA18"/></svg>`,
+    /* 7 — WFM RTA : horloge temps réel */
+    horloge: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#25E2CC"/><path d="M12 6.8V12l3.6 2.1" stroke="#002032" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.1" fill="#FBCA18"/></svg>`,
 
-    medical: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6.5" width="18" height="14" rx="2.5" fill="#25E2CC"/><path d="M9 6.5V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5" stroke="#25E2CC" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M12 10.5v6M9 13.5h6" stroke="#002032" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+    /* 8 — Visite Médicale : mallette médicale */
+    medical: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="15" rx="3" fill="#25E2CC"/><path d="M9 6V4.8a3 3 0 0 1 6 0V6" stroke="#25E2CC" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M12 10v7M8.5 13.5h7" stroke="#FBCA18" stroke-width="2.4" stroke-linecap="round"/></svg>`,
 
-    calculatrice: `<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="2" width="15" height="20" rx="2.5" fill="#25E2CC"/><rect x="7" y="4.5" width="10" height="4" rx="1" fill="#002032"/><circle cx="8.3" cy="13" r="1.3" fill="#7CEEE0"/><circle cx="12" cy="13" r="1.3" fill="#7CEEE0"/><circle cx="15.7" cy="13" r="1.3" fill="#7CEEE0"/><circle cx="8.3" cy="17.5" r="1.3" fill="#7CEEE0"/><circle cx="12" cy="17.5" r="1.3" fill="#7CEEE0"/><rect x="14.4" y="16.2" width="2.6" height="2.6" rx="0.8" fill="#FBCA18"/></svg>`
+    /* 9 — Simulateur Prime : calculatrice */
+    calculatrice: `<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="2" width="15" height="20" rx="3" fill="#25E2CC"/><rect x="7" y="4.5" width="10" height="4.2" rx="1.2" fill="#002032"/><rect x="7" y="11" width="2.7" height="2.7" rx="0.8" fill="#7CEEE0"/><rect x="10.65" y="11" width="2.7" height="2.7" rx="0.8" fill="#7CEEE0"/><rect x="14.3" y="11" width="2.7" height="2.7" rx="0.8" fill="#FBCA18"/><rect x="7" y="14.8" width="2.7" height="2.7" rx="0.8" fill="#7CEEE0"/><rect x="10.65" y="14.8" width="2.7" height="2.7" rx="0.8" fill="#7CEEE0"/><rect x="14.3" y="14.8" width="2.7" height="2.7" rx="0.8" fill="#FBCA18"/></svg>`
 };
 
 /* ============================================================
    ⚙️ CONFIGURATION — 2 SECTIONS (PBI / Applications Web)
+   💡 Champ optionnel "image" : nom d'un fichier PNG/SVG
+      uploadé dans le repo (prioritaire sur "icone")
    ============================================================ */
 const SECTIONS = [
     {
@@ -402,7 +413,7 @@ const SECTIONS = [
                 nom: "Atterrissage",
                 description: "BI axé sur l'analyse de l'atterrissage du Chiffre d'Affaires, des heures et des indicateurs de productivité. Ce module compare les résultats réalisés face aux objectifs budgétaires et aux RFC dans le but d'orienter et d'ajuster les arbitrages financiers et opérationnels.",
                 lien: "#",
-                icone: "revenue",
+                icone: "atterrissage",
                 maintenance: true
             },
             {   // 2
@@ -426,7 +437,7 @@ const SECTIONS = [
                 nom: "Budget Madagascar",
                 description: "Dashboard conçu par l'équipe Finance, assurant le monitoring des indicateurs clés (CA, Heures, GM, COGS) et la mesure des écarts entre les résultats validés, les objectifs budgétaires et les prévisions révisées (RFC).",
                 lien: "https://app.powerbi.com/groups/me/reports/52e09777-d3fc-41ea-b79d-a00bfac8db37/ReportSection0c70db442b9d2dec7810?experience=power-bi&bookmarkGuid=Bookmarkbdead6b0b44eee5495b5",
-                icone: "barres",
+                icone: "camembert",
                 maintenance: false
             },
             {   // 6
@@ -434,7 +445,7 @@ const SECTIONS = [
                 nom: "CEP",
                 description: "BI dédiée au pilotage financier, offrant un suivi précis des COGS à travers une vision journalière dynamique des dépenses opérationnelles, ventilées par site et par compte comptable.",
                 lien: "https://app.powerbi.com/view?r=eyJrIjoiZTg5ZDY5MjQtNmE3Zi00MGY2LThmNzEtYzY4YzRkY2UwYzcwIiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
-                icone: "jauge",
+                icone: "recu",
                 maintenance: false
             }
         ]
@@ -449,7 +460,7 @@ const SECTIONS = [
                 nom: "LogiPlan",
                 description: "Solution de centralisation des commandes de la cantine, confrontation en temps réel des données « commandé vs consommé » et suivi de la performance pour optimiser les approvisionnements.",
                 lien: "https://logiplan.onrender.com/",
-                icone: "camionCantine",
+                icone: "cloche",
                 maintenance: false
             },
             {   // 7
@@ -493,10 +504,15 @@ function creerCarte(module) {
         ? `<span class="maintenance-badge"><span class="dot"></span>En cours de Maintenance</span>`
         : '';
 
+    /* Le champ image (fichier flaticon) est prioritaire sur l'icône SVG */
+    const visuel = module.image
+        ? `<img src="${module.image}" alt="${module.nom}">`
+        : ICONES[module.icone];
+
     carte.innerHTML = `
         ${badge}
         <div class="card-head">
-            <div class="card-icon">${ICONES[module.icone]}</div>
+            <div class="card-icon">${visuel}</div>
             <div>
                 <div class="card-category">${module.categorie}</div>
                 <div class="card-title">${module.nom}</div>
