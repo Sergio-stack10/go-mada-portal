@@ -7,22 +7,16 @@
 <style>
     :root {
         /* ═══ CHARTE OFFICIELLE ═══ */
-        /* Base */
         --white: #FFFFFF;
         --midnight: #002032;
-        /* Main */
-        --jade: #007380;            /* Premium Jade Green */
-        --teal: #25E2CC;            /* Seafoam Teal */
-        --unifying-blue: #003D5B;   /* Unifying Blue */
-        /* Accent */
-        --yellow: #FBCA18;          /* Sunshine Yellow */
-        /* Restricted (alertes uniquement) */
+        --jade: #007380;
+        --teal: #25E2CC;
+        --unifying-blue: #003D5B;
+        --yellow: #FBCA18;
         --raspberry: #CC3262;
         --tangerine: #F05E2E;
-        /* Neutrals */
         --cool-gray: #F2F2F2;
         --charcoal: #2A2B2C;
-        /* Seafoam Teal Tints */
         --teal-80: #51E8D6;
         --teal-60: #7CEEE0;
         --teal-40: #A8F3EB;
@@ -34,7 +28,6 @@
 
     body {
         font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-        /* Midnight → Unifying Blue */
         background: linear-gradient(165deg, var(--midnight) 0%, var(--midnight) 45%, var(--unifying-blue) 130%);
         min-height: 100vh;
         color: var(--white);
@@ -78,104 +71,48 @@
         letter-spacing: 0.5px;
     }
 
-    /* 💡 Logo officiel en fichier ? Remplacez le div .cx-logo par :
-       <img src="logo.png" alt="Logo" style="height:32px;"> */
-
     /* ===== CONTENU ===== */
     main {
         flex: 1;
-        padding: 2.5rem 1.5rem 2rem;
+        padding: 3rem 2rem 2.5rem;
         width: 100%;
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 0 auto;
     }
 
-    header { text-align: center; margin-bottom: 2rem; }
-
-    .logo-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        background: rgba(37, 226, 204, 0.1);
-        border: 1px solid rgba(37, 226, 204, 0.4);
-        color: var(--teal);
-        padding: 0.45rem 1.3rem;
-        border-radius: 50px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        margin-bottom: 1.2rem;
-    }
+    header { text-align: center; margin-bottom: 2.5rem; }
 
     h1 {
-        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-size: clamp(2rem, 4.5vw, 3rem);
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
     }
 
-    /* Accent Sunshine Yellow — usage ponctuel */
     h1 span { color: var(--yellow); }
 
     .subtitle {
         color: var(--teal-40);
-        font-size: 1.1rem;
-        opacity: 0.85;
+        font-size: 1.15rem;
     }
 
-    /* ===== RECHERCHE ===== */
-    .search-container {
-        max-width: 450px;
-        margin: 1.8rem auto 2.2rem;
-        position: relative;
-    }
-
-    .search-container input {
-        width: 100%;
-        padding: 0.9rem 1.2rem 0.9rem 2.8rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(37, 226, 204, 0.25);
-        border-radius: 12px;
-        color: var(--white);
-        font-size: 1rem;
-        outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .search-container input::placeholder { color: var(--teal-40); opacity: 0.7; }
-
-    .search-container input:focus {
-        border-color: var(--teal);
-        box-shadow: 0 0 0 3px rgba(37, 226, 204, 0.15);
-    }
-
-    .search-container svg {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 18px;
-        height: 18px;
-        stroke: var(--teal-40);
-    }
-
-    /* ===== GRILLE ===== */
+    /* ===== GRILLE DE CARTES ===== */
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
         gap: 1.5rem;
     }
 
-    /* ===== CARTES ===== */
+    /* ===== CARTE — structure fidèle : titre + description + flèche ===== */
     .card {
-        background: rgba(0, 61, 91, 0.85);  /* Unifying Blue */
+        background: rgba(0, 61, 91, 0.85);
         border: 1px solid rgba(37, 226, 204, 0.18);
         border-radius: 16px;
-        padding: 1.5rem;
+        padding: 1.75rem;
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
         text-decoration: none;
         color: inherit;
+        min-height: 190px;
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         position: relative;
         overflow: hidden;
@@ -199,61 +136,39 @@
 
     .card:hover:not(.maintenance)::before { opacity: 1; }
 
-    .card-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        font-size: 1.4rem;
-    }
-
     .card-title {
-        font-size: 1.15rem;
-        font-weight: 600;
+        font-size: 1.25rem;
+        font-weight: 700;
         line-height: 1.3;
-        color: var(--white);
+        margin-bottom: 0.7rem;
+        padding-right: 9rem; /* espace pour le badge maintenance */
     }
 
     .card-description {
         color: var(--teal-40);
-        opacity: 0.85;
-        font-size: 0.9rem;
-        line-height: 1.5;
+        font-size: 0.95rem;
+        line-height: 1.6;
         flex-grow: 1;
     }
 
-    .card-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 0.5rem;
-    }
-
-    .card-tag {
-        font-size: 0.75rem;
-        color: var(--teal);
-        background: rgba(37, 226, 204, 0.12);
-        padding: 0.25rem 0.75rem;
-        border-radius: 50px;
-    }
-
+    /* Flèche circulaire en bas à droite */
     .arrow-btn {
-        width: 40px;
-        height: 40px;
+        align-self: flex-end;
+        margin-top: 1.2rem;
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
-        background: var(--teal);  /* Seafoam Teal */
+        background: var(--teal);
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
         transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
     }
 
     .arrow-btn svg {
-        width: 18px; height: 18px;
-        stroke: var(--midnight);  /* Contraste sur teal */
+        width: 20px; height: 20px;
+        stroke: var(--midnight);
         stroke-width: 2.5;
         fill: none;
         stroke-linecap: round;
@@ -262,7 +177,7 @@
 
     .card:hover:not(.maintenance) .arrow-btn {
         background: var(--teal-80);
-        transform: translateX(3px);
+        transform: translateX(4px);
         box-shadow: 0 4px 15px rgba(37, 226, 204, 0.45);
     }
 
@@ -276,7 +191,7 @@
 
     .maintenance-badge {
         position: absolute;
-        top: 1rem; right: 1rem;
+        top: 1.1rem; right: 1.1rem;
         background: rgba(240, 94, 46, 0.12);
         color: var(--tangerine);
         border: 1px solid rgba(240, 94, 46, 0.45);
@@ -301,13 +216,6 @@
         50% { opacity: 0.3; }
     }
 
-    .no-result {
-        text-align: center;
-        color: var(--teal-40);
-        padding: 3rem;
-        display: none;
-    }
-
     /* ===== FOOTER ===== */
     footer {
         text-align: center;
@@ -323,10 +231,16 @@
         color: var(--teal-40);
         font-size: 0.85rem;
         line-height: 1.7;
-        opacity: 0.85;
     }
 
     .footer-message strong { color: var(--white); font-weight: 600; }
+
+    @media (max-width: 640px) {
+        .navbar { padding: 1rem 1.25rem; }
+        main { padding: 2rem 1.25rem; }
+        .card-title { padding-right: 1rem; }
+        .maintenance-badge { position: static; align-self: flex-start; margin-bottom: 0.75rem; }
+    }
 </style>
 </head>
 <body>
@@ -339,21 +253,11 @@
 
 <main>
     <header>
-        <div class="logo-badge">📊 GO MADA BI</div>
         <h1>Bienvenue sur <span>Go Mada</span></h1>
         <p class="subtitle">Veuillez sélectionner votre espace BI</p>
     </header>
 
-    <div class="search-container">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <input type="text" id="searchInput" placeholder="Rechercher un outil..." onkeyup="filterCards()">
-    </div>
-
     <div class="grid" id="cardGrid"></div>
-    <div class="no-result" id="noResult">Aucun outil ne correspond à votre recherche.</div>
 </main>
 
 <!-- ═══════════ FOOTER ═══════════ -->
@@ -374,81 +278,53 @@ const MODULES = [
         titre: "Analyse Atterrissage",
         description: "Suivi et analyse des données d'atterrissage : ponctualité, régularité et performance des vols.",
         lien: "https://app.powerbi.com/groups/me/reports/VOTRE-ID-REPORT-1",
-        tag: "Opérations",
-        couleurIcone: "#25E2CC",   /* Seafoam Teal */
         maintenance: false
     },
     {
         titre: "Finance Budget Madagascar",
         description: "Consolidation budgétaire, suivi des écarts et pilotage financier de la filiale Madagascar.",
         lien: "https://app.powerbi.com/groups/me/reports/VOTRE-ID-REPORT-2",
-        tag: "Finance",
-        couleurIcone: "#FBCA18",   /* Sunshine Yellow */
         maintenance: false
     },
     {
         titre: "Simulateur Prime de régularité",
         description: "Simulation et calcul des primes de régularité du personnel selon les indicateurs de performance.",
         lien: "https://app.powerbi.com/groups/me/reports/VOTRE-ID-REPORT-3",
-        tag: "RH",
-        couleurIcone: "#51E8D6",   /* Teal 80% */
         maintenance: false
-    },
-    {
-        titre: "Reporting Commercial",
-        description: "Analyse des ventes, revenus et performance commerciale par segment et région.",
-        lien: "#",
-        tag: "Commercial",
-        couleurIcone: "#7CEEE0",   /* Teal 60% */
-        maintenance: true
-    },
-    {
-        titre: "Tableau de Bord QSE",
-        description: "Indicateurs Qualité, Sécurité et Environnement avec suivi des audits et incidents.",
-        lien: "#",
-        tag: "QSE",
-        couleurIcone: "#007380",   /* Premium Jade Green */
-        maintenance: true
     }
+    /* ➕ Ajoutez vos autres modules ici (virgule après chaque } sauf le dernier)
+       Exemple :
+    ,{
+        titre: "Nom du module",
+        description: "Description exacte du module",
+        lien: "https://...",
+        maintenance: true   ← true = badge "En cours de Maintenance"
+    }
+    */
 ];
 
 /* ============================================================
    🔧 GÉNÉRATION DES CARTES
    ============================================================ */
-const ICONES = {
-    "Opérations": "✈️",
-    "Finance": "💰",
-    "RH": "👥",
-    "Commercial": "📈",
-    "QSE": "🛡️"
-};
-
 function creerCarte(module) {
     const carte = document.createElement('a');
     carte.href = module.maintenance ? '#' : module.lien;
     carte.className = 'card' + (module.maintenance ? ' maintenance' : '');
     carte.target = module.maintenance ? '_self' : '_blank';
 
-    const icone = ICONES[module.tag] || '📊';
-    const badgeMaintenance = module.maintenance
+    const badge = module.maintenance
         ? `<span class="maintenance-badge"><span class="dot"></span>En cours de Maintenance</span>`
         : '';
 
     carte.innerHTML = `
-        ${badgeMaintenance}
-        <div class="card-icon" style="background:${module.couleurIcone}22; border:1px solid ${module.couleurIcone}55;">
-            <span>${icone}</span>
-        </div>
+        ${badge}
         <div class="card-title">${module.titre}</div>
         <div class="card-description">${module.description}</div>
-        <div class="card-footer">
-            <span class="card-tag">${module.tag}</span>
-            <div class="arrow-btn">
-                <svg viewBox="0 0 24 24">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-            </div>
+        <div class="arrow-btn">
+            <svg viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
         </div>
     `;
     return carte;
@@ -456,22 +332,6 @@ function creerCarte(module) {
 
 const grid = document.getElementById('cardGrid');
 MODULES.forEach(m => grid.appendChild(creerCarte(m)));
-
-/* 🔍 Recherche */
-function filterCards() {
-    const recherche = document.getElementById('searchInput').value.toLowerCase();
-    const cartes = document.querySelectorAll('.card');
-    let visible = 0;
-
-    cartes.forEach(carte => {
-        const texte = carte.textContent.toLowerCase();
-        const afficher = texte.includes(recherche);
-        carte.style.display = afficher ? '' : 'none';
-        if (afficher) visible++;
-    });
-
-    document.getElementById('noResult').style.display = visible ? 'none' : 'block';
-}
 </script>
 </body>
 </html>
