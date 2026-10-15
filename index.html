@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Go Mada — Portail BI</title>
+
+<!-- ═══ FAVICON (barres BI aux couleurs de la charte) ═══ -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23002032'/%3E%3Crect x='13' y='35' width='10' height='17' rx='3' fill='%2325E2CC'/%3E%3Crect x='27' y='26' width='10' height='26' rx='3' fill='%2351E8D6'/%3E%3Crect x='41' y='15' width='10' height='37' rx='3' fill='%23FBCA18'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#002032">
+
 <style>
     :root {
         /* ═══ CHARTE OFFICIELLE ═══ */
@@ -13,15 +18,11 @@
         --teal: #25E2CC;
         --unifying-blue: #003D5B;
         --yellow: #FBCA18;
-        --raspberry: #CC3262;
         --tangerine: #F05E2E;
-        --cool-gray: #F2F2F2;
-        --charcoal: #2A2B2C;
         --teal-80: #51E8D6;
         --teal-60: #7CEEE0;
         --teal-40: #A8F3EB;
         --teal-20: #D3F8F5;
-        --teal-10: #E9FCFA;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,7 +54,6 @@
         font-weight: 800;
         font-size: 1.45rem;
         letter-spacing: -0.03em;
-        color: var(--white);
         line-height: 1;
         user-select: none;
     }
@@ -71,48 +71,46 @@
         letter-spacing: 0.5px;
     }
 
-    /* ===== CONTENU ===== */
     main {
         flex: 1;
-        padding: 3rem 2rem 2.5rem;
+        padding: 2.5rem 2rem 2.5rem;
         width: 100%;
-        max-width: 1200px;
+        max-width: 1280px;
         margin: 0 auto;
     }
 
-    header { text-align: center; margin-bottom: 2.5rem; }
+    header { text-align: center; margin-bottom: 2.2rem; }
 
     h1 {
-        font-size: clamp(2rem, 4.5vw, 3rem);
+        font-size: clamp(1.9rem, 4vw, 2.7rem);
         font-weight: 700;
         margin-bottom: 0.6rem;
     }
 
     h1 span { color: var(--yellow); }
 
-    .subtitle {
-        color: var(--teal-40);
-        font-size: 1.15rem;
-    }
+    .subtitle { color: var(--teal-40); font-size: 1.1rem; }
 
-    /* ===== GRILLE DE CARTES ===== */
+    /* ===== GRILLE — 9 cartes en 3x3 ===== */
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.4rem;
     }
 
-    /* ===== CARTE — structure fidèle : titre + description + flèche ===== */
+    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }
+
+    /* ===== CARTE ===== */
     .card {
         background: rgba(0, 61, 91, 0.85);
         border: 1px solid rgba(37, 226, 204, 0.18);
         border-radius: 16px;
-        padding: 1.75rem;
+        padding: 1.5rem;
         display: flex;
         flex-direction: column;
         text-decoration: none;
         color: inherit;
-        min-height: 190px;
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
         position: relative;
         overflow: hidden;
@@ -136,27 +134,57 @@
 
     .card:hover:not(.maintenance)::before { opacity: 1; }
 
-    .card-title {
-        font-size: 1.25rem;
+    /* Icône + titres côte à côte */
+    .card-head {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        margin-bottom: 0.9rem;
+        padding-right: 8.5rem; /* espace badge maintenance */
+    }
+
+    .card-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(37, 226, 204, 0.08);
+        border: 1px solid rgba(37, 226, 204, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .card-icon svg { width: 27px; height: 27px; }
+
+    .card-category {
+        font-size: 0.72rem;
         font-weight: 700;
-        line-height: 1.3;
-        margin-bottom: 0.7rem;
-        padding-right: 9rem; /* espace pour le badge maintenance */
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: var(--teal);
+        margin-bottom: 0.15rem;
+    }
+
+    .card-title {
+        font-size: 1.18rem;
+        font-weight: 700;
+        line-height: 1.25;
     }
 
     .card-description {
         color: var(--teal-40);
-        font-size: 0.95rem;
-        line-height: 1.6;
+        font-size: 0.86rem;
+        line-height: 1.55;
         flex-grow: 1;
     }
 
     /* Flèche circulaire en bas à droite */
     .arrow-btn {
         align-self: flex-end;
-        margin-top: 1.2rem;
-        width: 46px;
-        height: 46px;
+        margin-top: 1rem;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
         background: var(--teal);
         display: flex;
@@ -167,7 +195,7 @@
     }
 
     .arrow-btn svg {
-        width: 20px; height: 20px;
+        width: 19px; height: 19px;
         stroke: var(--midnight);
         stroke-width: 2.5;
         fill: none;
@@ -181,7 +209,7 @@
         box-shadow: 0 4px 15px rgba(37, 226, 204, 0.45);
     }
 
-    /* ===== MAINTENANCE (Tangerine — couleur d'alerte) ===== */
+    /* ===== MAINTENANCE (Tangerine) ===== */
     .card.maintenance {
         opacity: 0.55;
         cursor: not-allowed;
@@ -195,7 +223,7 @@
         background: rgba(240, 94, 46, 0.12);
         color: var(--tangerine);
         border: 1px solid rgba(240, 94, 46, 0.45);
-        font-size: 0.7rem;
+        font-size: 0.68rem;
         font-weight: 600;
         padding: 0.3rem 0.7rem;
         border-radius: 50px;
@@ -238,14 +266,13 @@
     @media (max-width: 640px) {
         .navbar { padding: 1rem 1.25rem; }
         main { padding: 2rem 1.25rem; }
-        .card-title { padding-right: 1rem; }
+        .card-head { padding-right: 0; }
         .maintenance-badge { position: static; align-self: flex-start; margin-bottom: 0.75rem; }
     }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ BARRE SUPÉRIEURE ═══════════ -->
 <nav class="navbar">
     <div class="cx-logo">concentrix<span>.</span></div>
     <span class="navbar-tag">GO MADA BI</span>
@@ -260,7 +287,6 @@
     <div class="grid" id="cardGrid"></div>
 </main>
 
-<!-- ═══════════ FOOTER ═══════════ -->
 <footer>
     <div class="cx-logo">concentrix<span>.</span></div>
     <p class="footer-message">
@@ -271,40 +297,119 @@
 
 <script>
 /* ============================================================
-   ⚙️ CONFIGURATION — Modifiez uniquement cette partie
+   🎨 ICÔNES FLAT (SVG dessinées sur mesure — charte officielle)
+   ============================================================ */
+const ICONES = {
+    /* 1 — Avion en phase d'atterrissage */
+    atterrissage: `<svg viewBox="0 0 24 24" fill="none"><g transform="translate(12 12) rotate(135) scale(0.8) translate(-12 -12)"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#25E2CC"/></g></svg>`,
+
+    /* 2 — Balance (primes validées vs provisions) */
+    balance: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M7 21h10" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M4 6h16" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M4 6L1.5 11.5h5L4 6zM20 6l-2.5 5.5h5L20 6z" fill="#7CEEE0"/><circle cx="12" cy="6" r="1.6" fill="#FBCA18"/></svg>`,
+
+    /* 3 — Organigramme (taux d'encadrement) */
+    organigramme: `<svg viewBox="0 0 24 24" fill="none"><rect x="9" y="2.5" width="6" height="5" rx="1.2" fill="#25E2CC"/><rect x="2" y="16.5" width="6" height="5" rx="1.2" fill="#51E8D6"/><rect x="16" y="16.5" width="6" height="5" rx="1.2" fill="#51E8D6"/><path d="M12 7.5v4M5 11.5h14M5 11.5v5M19 11.5v5" stroke="#25E2CC" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+    /* 4 — Presse-papier suivi (commandes cantine) */
+    clipboard: `<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="3.5" width="15" height="18" rx="2.5" fill="#25E2CC"/><rect x="8.5" y="1.5" width="7" height="4" rx="1.2" fill="#7CEEE0"/><path d="M9 13l2.2 2.2L15.5 11" stroke="#002032" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+
+    /* 5 — Barres financières (CA, Heures, GM, COGS) */
+    barres: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="12" width="4.5" height="8.5" rx="1.2" fill="#51E8D6"/><rect x="9.75" y="8" width="4.5" height="12.5" rx="1.2" fill="#25E2CC"/><rect x="16.5" y="3.5" width="4.5" height="17" rx="1.2" fill="#FBCA18"/></svg>`,
+
+    /* 6 — Jauge (suivi COGS journalier) */
+    jauge: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 16a8 8 0 1 1 16 0" stroke="#25E2CC" stroke-width="2.5" stroke-linecap="round"/><path d="M12 16l4-4.5" stroke="#FBCA18" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="16" r="2" fill="#7CEEE0"/></svg>`,
+
+    /* 7 — Horloge temps réel (présence RTA) */
+    horloge: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#25E2CC" stroke-width="2.2"/><path d="M12 6.5V12l3.5 2" stroke="#7CEEE0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.3" fill="#FBCA18"/></svg>`,
+
+    /* 8 — Trousse médicale (visites médicales) */
+    medical: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6.5" width="18" height="14" rx="2.5" fill="#25E2CC"/><path d="M9 6.5V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5" stroke="#25E2CC" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M12 10.5v6M9 13.5h6" stroke="#002032" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+
+    /* 9 — Calculatrice (simulateur de prime) */
+    calculatrice: `<svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="2" width="15" height="20" rx="2.5" fill="#25E2CC"/><rect x="7" y="4.5" width="10" height="4" rx="1" fill="#002032"/><circle cx="8.3" cy="13" r="1.3" fill="#7CEEE0"/><circle cx="12" cy="13" r="1.3" fill="#7CEEE0"/><circle cx="15.7" cy="13" r="1.3" fill="#7CEEE0"/><circle cx="8.3" cy="17.5" r="1.3" fill="#7CEEE0"/><circle cx="12" cy="17.5" r="1.3" fill="#7CEEE0"/><rect x="14.4" y="16.2" width="2.6" height="2.6" rx="0.8" fill="#FBCA18"/></svg>`
+};
+
+/* ============================================================
+   ⚙️ CONFIGURATION DES 9 MODULES
+   ➜ Remplacez chaque LIEN-A-REMPLACER par l'URL de votre outil
+   ➜ Passez maintenance: true pour afficher "En cours de Maintenance"
    ============================================================ */
 const MODULES = [
-    {
-        titre: "Analyse Atterrissage",
-        description: "Suivi et analyse des données d'atterrissage : ponctualité, régularité et performance des vols.",
-        lien: "https://app.powerbi.com/groups/me/reports/VOTRE-ID-REPORT-1",
+    {   // 1
+        categorie: "Analyse",
+        nom: "Atterrissage",
+        description: "BI axé sur l'analyse de l'atterrissage du Chiffre d'Affaires, des heures et des indicateurs de productivité. Ce module compare les résultats réalisés face aux objectifs budgétaires et aux RFC dans le but d'orienter et d'ajuster les arbitrages financiers et opérationnels.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "atterrissage",
         maintenance: false
     },
-    {
-        titre: "Finance Budget Madagascar",
-        description: "Consolidation budgétaire, suivi des écarts et pilotage financier de la filiale Madagascar.",
-        lien: "https://app.powerbi.com/groups/me/reports/VOTRE-ID-REPORT-2",
+    {   // 2
+        categorie: "Analyse",
+        nom: "Prime I Provision",
+        description: "BI dédiée à l'analyse comparative et au contrôle de cohérence, mettant en évidence de manière dynamique les écarts constatés entre les primes réellement validées et les provisions initialement établies sur une période entièrement personnalisable.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "balance",
         maintenance: false
     },
-    {
-        titre: "Simulateur Prime de régularité",
-        description: "Simulation et calcul des primes de régularité du personnel selon les indicateurs de performance.",
-        lien: "https://app.powerbi.com/groups/me/reports/VOTRE-ID-REPORT-3",
+    {   // 3
+        categorie: "Analyse",
+        nom: "SPOC I Ratio",
+        description: "BI pour l'analyse et l'optimisation des structures managériales, conçu pour mesurer les taux d'encadrement et les ratios opérationnels face aux cibles stratégiques de la gestion des SPOC, s'appuyant sur les données extraites de Workday",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "organigramme",
+        maintenance: false
+    },
+    {   // 4
+        categorie: "Suivi",
+        nom: "LogiPlan",
+        description: "Solution de centralisation des commandes de la cantine, confrontation en temps réel des données « commandé vs consommé » et suivi de la performance pour optimiser les approvisionnements.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "clipboard",
+        maintenance: false
+    },
+    {   // 5
+        categorie: "Finance",
+        nom: "Budget Madagascar",
+        description: "Dashboard conçu par l'équipe Finance, assurant le monitoring des indicateurs clés (CA, Heures, GM, COGS) et la mesure des écarts entre les résultats validés, les objectifs budgétaires et les prévisions révisées (RFC).",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "barres",
+        maintenance: false
+    },
+    {   // 6
+        categorie: "Analyse",
+        nom: "CEP",
+        description: "BI dédiée au pilotage financier, offrant un suivi précis des COGS à travers une vision journalière dynamique des dépenses opérationnelles, ventilées par site et par compte comptable.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "jauge",
+        maintenance: false
+    },
+    {   // 7
+        categorie: "Portail",
+        nom: "WFM Real Time Attendance",
+        description: "Plateforme de pilotage opérationnel dédiée au suivi en temps réel de la présence par compte. Il centralise et synchronise la planification sur NICE IEX, le suivi de l'absentéisme, le suivi des incidents techniques, la vérification des écarts de saisie sur l'outil NICE, ainsi que les récapitulatifs EOD.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "horloge",
+        maintenance: false
+    },
+    {   // 8
+        categorie: "Suivi",
+        nom: "Visite Médicale",
+        description: "Solution centralisée pour optimiser le suivi des visites médicales d'embauche et systémique. Elle permet de piloter la conformité et de mesurer précisément les taux de réalisation par projet sur les visites médicale obligatoires des collaborateurs.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "medical",
+        maintenance: false
+    },
+    {   // 9
+        categorie: "Simulateur",
+        nom: "Prime de régularité",
+        description: "Calculateur de prime de régularité. Simulez la prime de chaque collaborateur en quelques clics : recherche par matricule, profils des 3 derniers mois, payplan par MSA et ancienneté, prorata selon les heures. Interface Admin pour gérer l'extraction ACTIF, le référentiel des activités et le payplan.",
+        lien: "https://LIEN-A-REMPLACER",
+        icone: "calculatrice",
         maintenance: false
     }
-    /* ➕ Ajoutez vos autres modules ici (virgule après chaque } sauf le dernier)
-       Exemple :
-    ,{
-        titre: "Nom du module",
-        description: "Description exacte du module",
-        lien: "https://...",
-        maintenance: true   ← true = badge "En cours de Maintenance"
-    }
-    */
 ];
 
 /* ============================================================
-   🔧 GÉNÉRATION DES CARTES
+   🔧 GÉNÉRATION DES CARTES — ne pas modifier
    ============================================================ */
 function creerCarte(module) {
     const carte = document.createElement('a');
@@ -318,7 +423,13 @@ function creerCarte(module) {
 
     carte.innerHTML = `
         ${badge}
-        <div class="card-title">${module.titre}</div>
+        <div class="card-head">
+            <div class="card-icon">${ICONES[module.icone]}</div>
+            <div>
+                <div class="card-category">${module.categorie}</div>
+                <div class="card-title">${module.nom}</div>
+            </div>
+        </div>
         <div class="card-description">${module.description}</div>
         <div class="arrow-btn">
             <svg viewBox="0 0 24 24">
