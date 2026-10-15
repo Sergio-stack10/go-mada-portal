@@ -79,7 +79,7 @@
         margin: 0 auto;
     }
 
-    header { text-align: center; margin-bottom: 2.2rem; }
+    header { text-align: center; margin-bottom: 2.5rem; }
 
     h1 {
         font-size: clamp(1.9rem, 4vw, 2.7rem);
@@ -91,15 +91,78 @@
 
     .subtitle { color: var(--teal-40); font-size: 1.1rem; }
 
-    /* ===== GRILLE ===== */
-    .grid {
+    /* ===== EN-TÊTE DE SECTION ===== */
+    .section { margin-bottom: 3rem; }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .section-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        background: rgba(37, 226, 204, 0.1);
+        border: 1px solid rgba(37, 226, 204, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .section-icon svg { width: 24px; height: 24px; }
+
+    .section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        color: var(--teal);
+        white-space: nowrap;
+    }
+
+    .section-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(37, 226, 204, 0.45), rgba(37, 226, 204, 0.05));
+    }
+
+    .section-count {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--teal-40);
+        background: rgba(37, 226, 204, 0.1);
+        border: 1px solid rgba(37, 226, 204, 0.25);
+        padding: 0.3rem 0.8rem;
+        border-radius: 50px;
+        white-space: nowrap;
+    }
+
+    /* ===== GRILLES — PBI : 3 col. / Web : 2 col. ===== */
+    .grid-pbi {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1.4rem;
     }
 
-    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }
+    .grid-web {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.4rem;
+    }
+
+    @media (max-width: 1024px) {
+        .grid-pbi { grid-template-columns: repeat(2, 1fr); }
+        .grid-web { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+        .grid-pbi, .grid-web { grid-template-columns: 1fr; }
+        .section-title { font-size: 1rem; letter-spacing: 1.2px; }
+    }
 
     /* ===== CARTE ===== */
     .card {
@@ -139,7 +202,7 @@
         align-items: center;
         gap: 0.9rem;
         margin-bottom: 0.9rem;
-        padding-right: 8.5rem;
+        padding-right: 8.5rem; /* espace badge maintenance */
     }
 
     .card-icon {
@@ -282,7 +345,7 @@
         <p class="subtitle">Veuillez sélectionner votre espace BI</p>
     </header>
 
-    <div class="grid" id="cardGrid"></div>
+    <div id="sections"></div>
 </main>
 
 <footer>
@@ -298,6 +361,12 @@
    🎨 ICÔNES FLAT (SVG — charte officielle)
    ============================================================ */
 const ICONES = {
+    /* — Icônes de sections — */
+    sectionPBI: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="15" rx="2" fill="none" stroke="#25E2CC" stroke-width="2"/><rect x="6.5" y="10.5" width="3" height="4.5" rx="0.8" fill="#25E2CC"/><rect x="10.5" y="8" width="3" height="7" rx="0.8" fill="#51E8D6"/><rect x="14.5" y="5.5" width="3" height="9.5" rx="0.8" fill="#FBCA18"/><path d="M9 21h6" stroke="#25E2CC" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+    sectionWeb: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#25E2CC" stroke-width="2"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9S9.5 5.5 12 3z" stroke="#51E8D6" stroke-width="1.8"/></svg>`,
+
+    /* — Icônes de cartes — */
     atterrissage: `<svg viewBox="0 0 24 24" fill="none"><g transform="translate(12 12) rotate(135) scale(0.8) translate(-12 -12)"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#25E2CC"/></g></svg>`,
 
     balance: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M7 21h10" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M4 6h16" stroke="#7CEEE0" stroke-width="2" stroke-linecap="round"/><path d="M4 6L1.5 11.5h5L4 6zM20 6l-2.5 5.5h5L20 6z" fill="#7CEEE0"/><circle cx="12" cy="6" r="1.6" fill="#FBCA18"/></svg>`,
@@ -318,85 +387,99 @@ const ICONES = {
 };
 
 /* ============================================================
-   ⚙️ CONFIGURATION DES 9 MODULES — LIENS FINAUX
+   ⚙️ CONFIGURATION — 2 SECTIONS (PBI / Applications Web)
    ============================================================ */
-const MODULES = [
-    {   // 1 — EN ATTENTE DE LIEN → badge maintenance actif
-        categorie: "Analyse",
-        nom: "Atterrissage",
-        description: "BI axé sur l'analyse de l'atterrissage du Chiffre d'Affaires, des heures et des indicateurs de productivité. Ce module compare les résultats réalisés face aux objectifs budgétaires et aux RFC dans le but d'orienter et d'ajuster les arbitrages financiers et opérationnels.",
-        lien: "#",
-        icone: "atterrissage",
-        maintenance: true
+const SECTIONS = [
+    {
+        id: "pbi",
+        titre: "Rapports Power BI",
+        icone: "sectionPBI",
+        modules: [
+            {   // 1 — EN ATTENTE DE LIEN → badge maintenance actif
+                categorie: "Analyse",
+                nom: "Atterrissage",
+                description: "BI axé sur l'analyse de l'atterrissage du Chiffre d'Affaires, des heures et des indicateurs de productivité. Ce module compare les résultats réalisés face aux objectifs budgétaires et aux RFC dans le but d'orienter et d'ajuster les arbitrages financiers et opérationnels.",
+                lien: "#",
+                icone: "atterrissage",
+                maintenance: true
+            },
+            {   // 2
+                categorie: "Analyse",
+                nom: "Prime I Provision",
+                description: "BI dédiée à l'analyse comparative et au contrôle de cohérence, mettant en évidence de manière dynamique les écarts constatés entre les primes réellement validées et les provisions initialement établies sur une période entièrement personnalisable.",
+                lien: "https://app.powerbi.com/view?r=eyJrIjoiOTMwN2U5OTQtYWJhYy00MTBlLWFmMjQtMjkwMTliNDZmYjE0IiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
+                icone: "balance",
+                maintenance: false
+            },
+            {   // 3
+                categorie: "Analyse",
+                nom: "SPOC I Ratio",
+                description: "BI pour l'analyse et l'optimisation des structures managériales, conçu pour mesurer les taux d'encadrement et les ratios opérationnels face aux cibles stratégiques de la gestion des SPOC, s'appuyant sur les données extraites de Workday",
+                lien: "https://app.powerbi.com/view?r=eyJrIjoiZGZiMzczZWYtMTE1Ni00ZTI1LWI2MDctYjE4N2U4M2NjNjBhIiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
+                icone: "organigramme",
+                maintenance: false
+            },
+            {   // 5
+                categorie: "Finance",
+                nom: "Budget Madagascar",
+                description: "Dashboard conçu par l'équipe Finance, assurant le monitoring des indicateurs clés (CA, Heures, GM, COGS) et la mesure des écarts entre les résultats validés, les objectifs budgétaires et les prévisions révisées (RFC).",
+                lien: "https://app.powerbi.com/groups/me/reports/52e09777-d3fc-41ea-b79d-a00bfac8db37/ReportSection0c70db442b9d2dec7810?experience=power-bi&bookmarkGuid=Bookmarkbdead6b0b44eee5495b5",
+                icone: "barres",
+                maintenance: false
+            },
+            {   // 6
+                categorie: "Analyse",
+                nom: "CEP",
+                description: "BI dédiée au pilotage financier, offrant un suivi précis des COGS à travers une vision journalière dynamique des dépenses opérationnelles, ventilées par site et par compte comptable.",
+                lien: "https://app.powerbi.com/view?r=eyJrIjoiZTg5ZDY5MjQtNmE3Zi00MGY2LThmNzEtYzY4YzRkY2UwYzcwIiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
+                icone: "jauge",
+                maintenance: false
+            }
+        ]
     },
-    {   // 2
-        categorie: "Analyse",
-        nom: "Prime I Provision",
-        description: "BI dédiée à l'analyse comparative et au contrôle de cohérence, mettant en évidence de manière dynamique les écarts constatés entre les primes réellement validées et les provisions initialement établies sur une période entièrement personnalisable.",
-        lien: "https://app.powerbi.com/view?r=eyJrIjoiOTMwN2U5OTQtYWJhYy00MTBlLWFmMjQtMjkwMTliNDZmYjE0IiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
-        icone: "balance",
-        maintenance: false
-    },
-    {   // 3
-        categorie: "Analyse",
-        nom: "SPOC I Ratio",
-        description: "BI pour l'analyse et l'optimisation des structures managériales, conçu pour mesurer les taux d'encadrement et les ratios opérationnels face aux cibles stratégiques de la gestion des SPOC, s'appuyant sur les données extraites de Workday",
-        lien: "https://app.powerbi.com/view?r=eyJrIjoiZGZiMzczZWYtMTE1Ni00ZTI1LWI2MDctYjE4N2U4M2NjNjBhIiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
-        icone: "organigramme",
-        maintenance: false
-    },
-    {   // 4
-        categorie: "Suivi",
-        nom: "LogiPlan",
-        description: "Solution de centralisation des commandes de la cantine, confrontation en temps réel des données « commandé vs consommé » et suivi de la performance pour optimiser les approvisionnements.",
-        lien: "https://logiplan.onrender.com/",
-        icone: "clipboard",
-        maintenance: false
-    },
-    {   // 5
-        categorie: "Finance",
-        nom: "Budget Madagascar",
-        description: "Dashboard conçu par l'équipe Finance, assurant le monitoring des indicateurs clés (CA, Heures, GM, COGS) et la mesure des écarts entre les résultats validés, les objectifs budgétaires et les prévisions révisées (RFC).",
-        lien: "https://app.powerbi.com/groups/me/reports/52e09777-d3fc-41ea-b79d-a00bfac8db37/ReportSection0c70db442b9d2dec7810?experience=power-bi&bookmarkGuid=Bookmarkbdead6b0b44eee5495b5",
-        icone: "barres",
-        maintenance: false
-    },
-    {   // 6
-        categorie: "Analyse",
-        nom: "CEP",
-        description: "BI dédiée au pilotage financier, offrant un suivi précis des COGS à travers une vision journalière dynamique des dépenses opérationnelles, ventilées par site et par compte comptable.",
-        lien: "https://app.powerbi.com/view?r=eyJrIjoiZTg5ZDY5MjQtNmE3Zi00MGY2LThmNzEtYzY4YzRkY2UwYzcwIiwidCI6IjU5OWU1MWQ2LTJmOGMtNDM0Ny04ZTU5LTFmNzk1YTUxYTk4YyIsImMiOjZ9",
-        icone: "jauge",
-        maintenance: false
-    },
-    {   // 7
-        categorie: "Portail",
-        nom: "WFM Real Time Attendance",
-        description: "Plateforme de pilotage opérationnel dédiée au suivi en temps réel de la présence par compte. Il centralise et synchronise la planification sur NICE IEX, le suivi de l'absentéisme, le suivi des incidents techniques, la vérification des écarts de saisie sur l'outil NICE, ainsi que les récapitulatifs EOD.",
-        lien: "https://portail-wfm.pages.dev/",
-        icone: "horloge",
-        maintenance: false
-    },
-    {   // 8
-        categorie: "Suivi",
-        nom: "Visite Médicale",
-        description: "Solution centralisée pour optimiser le suivi des visites médicales d'embauche et systémique. Elle permet de piloter la conformité et de mesurer précisément les taux de réalisation par projet sur les visites médicale obligatoires des collaborateurs.",
-        lien: "https://suivi-medical-backend.onrender.com/",
-        icone: "medical",
-        maintenance: false
-    },
-    {   // 9
-        categorie: "Simulateur",
-        nom: "Prime de régularité",
-        description: "Calculateur de prime de régularité. Simulez la prime de chaque collaborateur en quelques clics : recherche par matricule, profils des 3 derniers mois, payplan par MSA et ancienneté, prorata selon les heures. Interface Admin pour gérer l'extraction ACTIF, le référentiel des activités et le payplan.",
-        lien: "https://simulateur-prime.onrender.com/",
-        icone: "calculatrice",
-        maintenance: false
+    {
+        id: "web",
+        titre: "Applications Web",
+        icone: "sectionWeb",
+        modules: [
+            {   // 4
+                categorie: "Suivi",
+                nom: "LogiPlan",
+                description: "Solution de centralisation des commandes de la cantine, confrontation en temps réel des données « commandé vs consommé » et suivi de la performance pour optimiser les approvisionnements.",
+                lien: "https://logiplan.onrender.com/",
+                icone: "clipboard",
+                maintenance: false
+            },
+            {   // 7
+                categorie: "Portail",
+                nom: "WFM Real Time Attendance",
+                description: "Plateforme de pilotage opérationnel dédiée au suivi en temps réel de la présence par compte. Il centralise et synchronise la planification sur NICE IEX, le suivi de l'absentéisme, le suivi des incidents techniques, la vérification des écarts de saisie sur l'outil NICE, ainsi que les récapitulatifs EOD.",
+                lien: "https://portail-wfm.pages.dev/",
+                icone: "horloge",
+                maintenance: false
+            },
+            {   // 8
+                categorie: "Suivi",
+                nom: "Visite Médicale",
+                description: "Solution centralisée pour optimiser le suivi des visites médicales d'embauche et systémique. Elle permet de piloter la conformité et de mesurer précisément les taux de réalisation par projet sur les visites médicale obligatoires des collaborateurs.",
+                lien: "https://suivi-medical-backend.onrender.com/",
+                icone: "medical",
+                maintenance: false
+            },
+            {   // 9
+                categorie: "Simulateur",
+                nom: "Prime de régularité",
+                description: "Calculateur de prime de régularité. Simulez la prime de chaque collaborateur en quelques clics : recherche par matricule, profils des 3 derniers mois, payplan par MSA et ancienneté, prorata selon les heures. Interface Admin pour gérer l'extraction ACTIF, le référentiel des activités et le payplan.",
+                lien: "https://simulateur-prime.onrender.com/",
+                icone: "calculatrice",
+                maintenance: false
+            }
+        ]
     }
 ];
 
 /* ============================================================
-   🔧 GÉNÉRATION DES CARTES — ne pas modifier
+   🔧 GÉNÉRATION DES SECTIONS ET CARTES — ne pas modifier
    ============================================================ */
 function creerCarte(module) {
     const carte = document.createElement('a');
@@ -428,8 +511,27 @@ function creerCarte(module) {
     return carte;
 }
 
-const grid = document.getElementById('cardGrid');
-MODULES.forEach(m => grid.appendChild(creerCarte(m)));
+const conteneur = document.getElementById('sections');
+
+SECTIONS.forEach(section => {
+    const bloc = document.createElement('div');
+    bloc.className = 'section';
+
+    bloc.innerHTML = `
+        <div class="section-header">
+            <div class="section-icon">${ICONES[section.icone]}</div>
+            <h2 class="section-title">${section.titre}</h2>
+            <span class="section-line"></span>
+            <span class="section-count">${section.modules.length} ${section.id === 'pbi' ? 'rapports' : 'applications'}</span>
+        </div>
+        <div class="${section.id === 'pbi' ? 'grid-pbi' : 'grid-web'}"></div>
+    `;
+
+    const grille = bloc.querySelector('.grid-pbi, .grid-web');
+    section.modules.forEach(m => grille.appendChild(creerCarte(m)));
+
+    conteneur.appendChild(bloc);
+});
 </script>
 </body>
 </html>
